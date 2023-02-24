@@ -16,31 +16,17 @@ contract AccountManager is AccountFactory {
 
     mapping(address => Account) public accountAddressMap;
     mapping(string => address) public nameToAddressMap;
+    Account[] public accounts;
 
-    /*
-        Checks if an account with this address already exists
-        @param userAddress The address of the user, msg.sender
-    */
-    modifier accountNotExist(address _userAddress){
-        require(accountAddressMap[_userAddress].valid == false);
-        _;
+    function GetAccounts() external view returns (Account[] memory){
+        return accounts;
     }
 
-    /*
-        Checks if the account name is available
-        @param name The name of the account
-    */
-    modifier accountNameAvailable(string memory _name){
+    function SignUp(string memory _name) external {
+        require(accountAddressMap[msg.sender].valid == false); // Checks if the account name is available
         require(nameToAddressMap[_name] == NULL_ADDR); // @dev if the address is null for the name, the name is free
-        _;
-    }
-
-    /*
-        Sign up function, lets users create an account
-        @param name The name of the account
-    */
-    function SignUp(string memory name) external accountNotExist(msg.sender) accountNameAvailable(name) {
-        Account memory account = CreateAccount(name,msg.sender);
+        Account memory account = CreateAccount(_name,msg.sender);
+        accounts.push(account);
         accountAddressMap[msg.sender] = account;
     }
 
@@ -51,5 +37,12 @@ contract AccountManager is AccountFactory {
     function ChangeName(string memory _newName) external {
         require(accountAddressMap[msg.sender].valid == true);
         accountAddressMap[msg.sender].accountName = _newName;
+    }
+
+    /*
+        Testing function to see whether ethers.js works correctly for the testing environment
+    */
+    function AddNumbers(uint a, uint b) public pure returns(uint){
+        return a + b;
     }
 }

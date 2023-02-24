@@ -1,7 +1,79 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\DEFI\\TestEthProject\\contracts\\Lock.sol": {
+    "C:\\DEFI\\blockbear\\contracts\\AccountFactory.sol": {
+      "lastModificationDate": 1677192884578,
+      "contentHash": "fd4efebe9f20959fd8d3266acafcbf30",
+      "sourceName": "contracts/AccountFactory.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "AccountFactory"
+      ]
+    },
+    "C:\\DEFI\\blockbear\\contracts\\AccountManager.sol": {
+      "lastModificationDate": 1677279923665,
+      "contentHash": "999dbd3e2fff82fbf24c64fbd6f34de4",
+      "sourceName": "contracts/AccountManager.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./AccountFactory.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "AccountManager"
+      ]
+    },
+    "C:\\DEFI\\blockbear\\contracts\\Lock.sol": {
       "lastModificationDate": 1677084148182,
       "contentHash": "ae66265769cc28ebdaa34881df95bc5e",
       "sourceName": "contracts/Lock.sol",
@@ -34,6 +106,41 @@
       ],
       "artifacts": [
         "Lock"
+      ]
+    },
+    "C:\\DEFI\\blockbear\\contracts\\PostFactory.sol": {
+      "lastModificationDate": 1677195178249,
+      "contentHash": "b722e5041a7e69aa128b40b1a3e58a9a",
+      "sourceName": "contracts/PostFactory.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "PostFactory"
       ]
     }
   }
