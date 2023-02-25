@@ -1,9 +1,0 @@
-{
-  "devDependencies": {
-    "ethereum-waffle": "^4.0.10",
-    "hardhat": "^2.12.7"
-  },
-  "dependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^2.0.1"
-  }
-}
