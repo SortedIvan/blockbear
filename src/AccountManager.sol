@@ -25,6 +25,7 @@ contract AccountManager is AccountFactory {
     function SignUp(string memory _name) external {
         require(accountAddressMap[msg.sender].valid == false); // Checks if the account name is available
         require(nameToAddressMap[_name] == NULL_ADDR); // @dev if the address is null for the name, the name is free
+
         Account memory account = CreateAccount(_name,msg.sender);
         accounts.push(account);
         accountAddressMap[msg.sender] = account;
@@ -39,9 +40,12 @@ contract AccountManager is AccountFactory {
         accountAddressMap[msg.sender].accountName = _newName;
     }
 
-    /*
-        Testing function to see whether ethers.js works correctly for the testing environment
-    */
+    /* Getter for usernames */
+    function GetUsername() external view returns (string memory){
+        return accountAddressMap[msg.sender].accountName;
+    }
+
+    /*Testing function to see whether ethers.js works correctly for the testing environment*/
     function AddNumbers(uint a, uint b) public pure returns(uint){
         return a + b;
     }
