@@ -24,8 +24,8 @@ contract AccountManagerTest is Test {
         address someRandomUser = vm.addr(1); // Get a random address for a user
 
         // For this to appear within the console, we need to run the test with more verbosity
-        // address test = address(accountManager);
-        // console.log(test);
+        //address test = address(accountManager);
+        //console.log(test);
         vm.prank(someRandomUser); // Make sure the signup function is called with the address 
         // Create a new account
         accountManager.SignUp("Ivan");
@@ -34,4 +34,5 @@ contract AccountManagerTest is Test {
         string memory username = accountManager.GetUsername();
         assertEq(username, "Ivan");
     }
+ 
 }
