@@ -3,6 +3,8 @@ pragma solidity ^0.8.9;
 import "./ChannelFactory.sol";
 import "./AccessControl.sol";
 import "../User/AccoundModel.sol";
+import "../Post/PostManager.sol";
+
 contract ChannelManager is ChannelFactory, AccessControl {
 
     uint32 private constant USER_CHANNEL_LIMIT = 3;
@@ -62,4 +64,11 @@ contract ChannelManager is ChannelFactory, AccessControl {
 
         emit channelCreated(msg.sender, _channelName);
     }
+
+    // // @channel_name
+    // // the _account that is making the post
+    // createNewPost(string memory _channelHandle, address _account) {
+    //     Post memory newPost = CreatePost(_account, "test");
+    //     //posts.push(newPost);
+    // }
 }

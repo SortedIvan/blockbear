@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: CC-BY-SA-4.0
+// SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.7;
 
 contract AccessControl {
@@ -16,8 +16,17 @@ contract AccessControl {
     mapping(string => mapping(address => uint8)) public invitedToRole;
     mapping(string => mapping(address => uint8)) public rolesInChannel;
 
-    modifier onlyOwner(string memory _channelHandle) {
+    constructor (){ 
+        rolesInChannel["@test"][msg.sender] = 3;
+    }
+
+    modifier isOwner(string memory _channelHandle) {
         require(rolesInChannel[_channelHandle][msg.sender] == OWNER, "Account is not an owner");
+        _;
+    }
+
+    modifier isUser(string memory _channelHandle, address _account) {
+        require(rolesInChannel[_channelHandle][_account] == USER, "Account is not a user");
         _;
     }
 
@@ -33,7 +42,7 @@ contract AccessControl {
         _;
     }
 
-    modifier onlyIfAdmin(string memory _channelHandle, address _account) {
+    modifier isAdmin(string memory _channelHandle, address _account) {
         require(rolesInChannel[_channelHandle][_account] == ADMIN, "This account isn't an admin!");
         _;
     }
@@ -43,11 +52,16 @@ contract AccessControl {
         emit MakeOwnerEvent(OWNER, msg.sender, _channelHandle);
     }
 
-    function demoteRole(string memory _channelHandle, address _account) 
-        external 
-        onlyIfAdmin(_channelHandle, _account)
-        onlyOwnerAndAdmin(_channelHandle) {
+    function demoteAdminToUser(string memory _channelHandle, address _account) external isOwner(_channelHandle) isAdmin(_channelHandle,_account){
         rolesInChannel[_channelHandle][_account] = USER;
+    }
+
+    function demoteAdminToNone(string memory _channelHandle, address _account) external isOwner(_channelHandle) isAdmin(_channelHandle,_account){
+        rolesInChannel[_channelHandle][_account] = NONE;
+    }
+
+    function demoteUserToNone(string memory _channelHandle, address _account) external onlyOwnerAndAdmin(_channelHandle) isUser(_channelHandle, _account){
+        rolesInChannel[_channelHandle][_account] = NONE;
     }
 
     function acceptRole(string memory _channelHandle) external {
@@ -63,13 +77,5 @@ contract AccessControl {
     function grantRole(uint8 _role, address _account, string memory _channelHandle) external onlyOwnerAndAdmin(_channelHandle) {
         invitedToRole[_channelHandle][_account] = _role;
         emit GrantRoleEvent(_role, _account, _channelHandle);
-    }
-
-    function revokeRole(uint8 _role, address _account, string memory _channelHandle) 
-        external 
-        onlyOwnerAndAdmin(_channelHandle) 
-        onlyNotOwner(_channelHandle, _account) {
-        rolesInChannel[_channelHandle][_account] = NONE;
-        emit RevokeRoleEvent(_role, _account, _channelHandle);
     }
 }
