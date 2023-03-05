@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "../src/AccountManager.sol";
+import "../src/User/AccountManager.sol";
 
 contract AccountManagerTest is Test {
     AccountManager public accountManager;
