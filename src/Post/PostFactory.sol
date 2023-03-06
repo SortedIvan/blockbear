@@ -7,7 +7,6 @@ contract PostFactory {
         User content post
     */
     struct Post {
-        uint256 id;
         address owner;
         string content;
         uint likesAmount;
