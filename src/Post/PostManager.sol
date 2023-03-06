@@ -21,11 +21,11 @@ contract PostManager is PostFactory {
         channelPosts[_channelHandle].push(CreatePost(msg.sender, _content));
     }
 
-    function getPostsInChannel(string memory _channelHandle) external view returns (Post[] memory) {
+    function getAllPostsInChannel(string memory _channelHandle) external view returns (Post[] memory) {
         return channelPosts[_channelHandle];
     }
 
-    function getCertainPostInChannel(string memory _channelHandle, address _account, uint256 _index) external view returns (Post memory) {
+    function getCertainPostFromAccountInChannel(string memory _channelHandle, address _account, uint256 _index) external view returns (Post memory) {
         return userPosts[_channelHandle][_account][_index];
     }
 

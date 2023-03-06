@@ -64,11 +64,4 @@ contract ChannelManager is ChannelFactory, AccessControl {
 
         emit channelCreated(msg.sender, _channelName);
     }
-
-    // // @channel_name
-    // // the _account that is making the post
-    // createNewPost(string memory _channelHandle, address _account) {
-    //     Post memory newPost = CreatePost(_account, "test");
-    //     //posts.push(newPost);
-    // }
 }
