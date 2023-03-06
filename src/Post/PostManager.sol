@@ -10,8 +10,26 @@ contract PostManager is PostFactory {
 
     //post -> id/owner
 
-    //channels have posts
+    // @channel => 0x123 => all the posts of 0x123
     mapping(string => mapping(address => Post[])) userPosts;
-    mapping(string => mapping(address => mapping(uint => Post))) usersCertainPost;
+    // @channel => all the posts in a channel
     mapping(string => Post[]) channelPosts;
+
+    // create modifier to check if the user, creating the post is indeed in the channel
+    function createPostInChannel(string memory _channelHandle, string memory _content) external {
+        userPosts[_channelHandle][msg.sender].push(CreatePost(msg.sender, _content));
+        channelPosts[_channelHandle].push(CreatePost(msg.sender, _content));
+    }
+
+    function getPostsInChannel(string memory _channelHandle) external view returns (Post[] memory) {
+        return channelPosts[_channelHandle];
+    }
+
+    function getCertainPostInChannel(string memory _channelHandle, address _account, uint256 _index) external view returns (Post memory) {
+        return userPosts[_channelHandle][_account][_index];
+    }
+
+    function getAllPostsFromAccountInChannel(string memory _channelHandle, address _account) external view returns (Post[] memory) {
+        return userPosts[_channelHandle][_account];
+    }
 }

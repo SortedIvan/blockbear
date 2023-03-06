@@ -11,7 +11,7 @@ contract AccessControl {
     event MakeOwnerEvent(uint8 indexed role, address indexed account, string channelHandle);
     event GrantRoleEvent(uint8 indexed role, address indexed account, string channelHandle);
     event AcceptRoleEvent(uint8 indexed role, address indexed account, string channelHandle);
-    event RevokeRoleEvent(uint8 indexed role, address indexed account, string channelHandle);
+    event DemoteRoleEvent(uint8 indexed role, address indexed account, string channelHandle);
 
     mapping(string => mapping(address => uint8)) public invitedToRole;
     mapping(string => mapping(address => uint8)) public rolesInChannel;
@@ -54,14 +54,17 @@ contract AccessControl {
 
     function demoteAdminToUser(string memory _channelHandle, address _account) external isOwner(_channelHandle) isAdmin(_channelHandle,_account){
         rolesInChannel[_channelHandle][_account] = USER;
+        emit DemoteRoleEvent(rolesInChannel[_channelHandle][_account], _account, _channelHandle);
     }
 
     function demoteAdminToNone(string memory _channelHandle, address _account) external isOwner(_channelHandle) isAdmin(_channelHandle,_account){
         rolesInChannel[_channelHandle][_account] = NONE;
+        emit DemoteRoleEvent(rolesInChannel[_channelHandle][_account], _account, _channelHandle);
     }
 
     function demoteUserToNone(string memory _channelHandle, address _account) external onlyOwnerAndAdmin(_channelHandle) isUser(_channelHandle, _account){
         rolesInChannel[_channelHandle][_account] = NONE;
+        emit DemoteRoleEvent(rolesInChannel[_channelHandle][_account], _account, _channelHandle);
     }
 
     function acceptRole(string memory _channelHandle) external {
