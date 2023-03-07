@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.7;
+import "./IAccessControl.sol";
 
-contract AccessControl {
+contract AccessControl is IAccessControl {
 
     uint8 public constant OWNER = 3;
     uint8 public constant ADMIN = 2;
@@ -73,7 +74,7 @@ contract AccessControl {
         emit AcceptRoleEvent(rolesInChannel[_channelHandle][msg.sender], msg.sender, _channelHandle);
     }
 
-    function getUserRoleByChannel(string memory _channelHandle) external view returns (uint8) {
+    function getUserRoleByChannel(string memory _channelHandle) public view returns (uint8) {
         return rolesInChannel[_channelHandle][msg.sender];
     }
 

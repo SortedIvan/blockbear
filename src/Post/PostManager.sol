@@ -2,23 +2,21 @@
 pragma solidity ^0.8.9;
 import "./PostFactory.sol";
 
+
+
 contract PostManager is PostFactory {
-    Post[] public posts;
-
-    // users in their feed have posts
-    // channels have posts
-    // users in channels have posts
-    // the general feed can have posts
-
-    //post -> id/owner
-
     mapping(string => mapping(address => Post[])) accountPostsInChannel;
     mapping(string => Post[]) channelPosts;
+    mapping(string => mapping(address => mapping(uint256 => Post))) usersCertainPost;
 
     // create modifier to check if the user, creating the post is indeed in the channel
     function createPostInChannel(string memory _channelHandle, string memory _content) external {
-        accountPostsInChannel[_channelHandle][msg.sender].push(CreatePost(msg.sender, _content));
-        channelPosts[_channelHandle].push(CreatePost(msg.sender, _content));
+        uint256 _tempPostCount = channelPosts[_channelHandle].length;
+        Post memory post = CreatePost(msg.sender, _content,_tempPostCount);
+
+        accountPostsInChannel[_channelHandle][msg.sender].push(post);
+        channelPosts[_channelHandle].push(post);
+        usersCertainPost[_channelHandle][msg.sender][_tempPostCount] = post;
     }
 
     function getAllPostsInChannel(string memory _channelHandle) external view returns (Post[] memory) {
