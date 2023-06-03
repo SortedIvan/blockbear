@@ -13,6 +13,7 @@ contract AccountManager is AccountFactory {
     address constant NULL_ADDR = address(0);
 
     event NewAccount(address userAddress, string name);
+    // test pushing
 
     mapping(address => Account) public accountAddressMap;
     mapping(string => address) public nameToAddressMap;
